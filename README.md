@@ -1,6 +1,6 @@
 # face-reconginition-front-end
 A fullstack app written in JavaScript using React.js, Node.js, Express.js and PostgreSQL.  
-You can test the app using the following link: https://face-recognition-f-e.herokuapp.com/
+You can test the app using the following link: https://face-recognition-f-e.herokuapp.com/  
 Functionalities:
 1. Register: checks if the user has filled in all the input fields and stores the user's information in the database.  
 If the user doesn't enter all the required information, then he will not be able to register.
