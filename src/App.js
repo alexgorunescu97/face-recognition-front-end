@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const clarifaiFace = data.region_info.bounding_box;
     const image = document.getElementById('imageInput');
     const width = Number(image.width);
     const height = Number(image.height);
@@ -92,23 +92,27 @@ class App extends Component {
       .then(response =>  response.json())
       .then(response => {
         if (response.outputs) {
-          console.log(response)
-          fetch('https://conservative-leaf-51298.herokuapp.com/image', {
-            method: 'put',
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
+          let dataLength = response.outputs[0].data.regions.length;
+          for (let i = 0; i < dataLength; i++) {
+            fetch('https://conservative-leaf-51298.herokuapp.com/image', {
+              method: 'put',
+              headers: {
+                'Content-type': 'application/json'
+              },
+              body: JSON.stringify({
               id: this.state.user.id
+              })
             })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, {entries: count}));
+              .then(response => response.json())
+              .then(count => {
+                console.log(response.outputs[0].data.regions[i])
+                this.displayFaceBox(this.calculateFaceLocation(response.outputs[0].data.regions[i]));
+                this.setState(Object.assign(this.state.user, {entries: count}));
             })
-            .catch(console.log)
+              .catch(console.log)
+          }
+        
         }
-        this.displayFaceBox(this.calculateFaceLocation(response));
       })
       .catch(err => this.setState({
         imageUrl: '',
