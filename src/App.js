@@ -71,7 +71,8 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({
-      imageUrl: this.state.urlInput
+      imageUrl: this.state.urlInput,
+      box: []
     }, this.apiCall)
   }
 
