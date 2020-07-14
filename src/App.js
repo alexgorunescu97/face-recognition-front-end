@@ -92,6 +92,7 @@ class App extends Component {
       .then(response =>  response.json())
       .then(response => {
         if (response.outputs) {
+          console.log(response)
           fetch('https://conservative-leaf-51298.herokuapp.com/image', {
             method: 'put',
             headers: {
