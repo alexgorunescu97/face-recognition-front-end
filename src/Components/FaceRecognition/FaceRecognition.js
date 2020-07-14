@@ -9,7 +9,11 @@ const FaceRecognition = ({ imageUrl, box, error }) => {
                     ? <p className="f2">{error}</p> 
                     : <div>
                         <img id='imageInput' src={imageUrl} alt="" width="500px" height="auto"/>
-                        <div className="bounding-box" style={{ top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol }}></div>
+                        {
+                            box.map(({ topRow, rightCol, bottomRow, leftCol }) => (
+                                <div className="bounding-box" style={{ top: topRow, right: rightCol, bottom: bottomRow, left: leftCol }}></div>
+                            ))
+                        }
                       </div>
                 }
             </div>

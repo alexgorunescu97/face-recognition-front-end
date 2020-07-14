@@ -17,7 +17,7 @@ class App extends Component {
     this.state = {
       urlInput: '',
       imageUrl: '',
-      box: {},
+      box: [],
       route: 'signin',
       isSignedIn: false,
       user: {
@@ -58,9 +58,9 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    this.setState({
-      box: box
-    });
+    this.setState(prevState => ({
+      box: [...prevState.box, box]
+    }));
   }
 
   onInputChange = (event) => {
@@ -105,7 +105,6 @@ class App extends Component {
             })
               .then(response => response.json())
               .then(count => {
-                console.log(response.outputs[0].data.regions[i])
                 this.displayFaceBox(this.calculateFaceLocation(response.outputs[0].data.regions[i]));
                 this.setState(Object.assign(this.state.user, {entries: count}));
             })
@@ -116,7 +115,7 @@ class App extends Component {
       })
       .catch(err => this.setState({
         imageUrl: '',
-        box: {},
+        box: [],
         error: "Please enter a valid url!"
       }));
   }
